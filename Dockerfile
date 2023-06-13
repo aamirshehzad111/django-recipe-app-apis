@@ -13,6 +13,9 @@ EXPOSE 8080
 
 ARG DEV=false
 RUN pip install --upgrade pip && \
+    apk add --update --no-cache postgresql-client jpeg-dev && \
+    apk add --update --no-cache --virtual .tmp-build-deps \
+        build-base postgresql-dev musl-dev zlib zlib-dev linux-headers && \
     pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
     then pip install -r /tmp/requirements.dev.txt ; \
